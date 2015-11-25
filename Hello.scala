@@ -37,7 +37,6 @@ class Multiplier extends Module {
     io.valid := Bool(true)
   }.otherwise {
     io.c := UInt(0)
-    //io.c := r
     io.valid := Bool(false)
   }
 }
@@ -72,7 +71,12 @@ class AdderTests(c: Adder) extends Tester(c) {
 object hello {
   def main(args: Array[String]): Unit = {
     chiselMainTest(Array[String]("--backend", "c", "--compile", "--test", "--genHarness"),
-       // () => Module(new Adder())){c => new AdderTests(c)}
+       () => Module(new Adder())){c => new AdderTests(c)}
+    chiselMainTest(Array[String]("--backend", "c", "--compile", "--test", "--genHarness"),
+       () => Module(new Multiplier())){c => new MultTests(c)}
+    chiselMainTest(Array[String]("--backend", "v", "--genHarness"),
+       () => Module(new Adder())){c => new AdderTests(c)}
+    chiselMainTest(Array[String]("--backend", "v", "--genHarness"),
        () => Module(new Multiplier())){c => new MultTests(c)}
   }
 }
