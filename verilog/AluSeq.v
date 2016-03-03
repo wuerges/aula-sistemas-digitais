@@ -15,6 +15,7 @@ module AluSeq(
       1: c_reg <= a - b;
       2: c_reg <= a & b;
       3: c_reg <= a | b;
+      default: c_reg <= 0;
     endcase
   end
 
