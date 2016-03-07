@@ -1,4 +1,3 @@
-// Automatically generated Verilog-2001
 module quartusTop(CLOCK_50
                 , KEY
                 , LEDG);
