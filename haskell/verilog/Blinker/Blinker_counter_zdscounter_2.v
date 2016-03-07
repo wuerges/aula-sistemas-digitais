@@ -1,5 +1,5 @@
 // Automatically generated Verilog-2001
-module Blinker_counter_zdscounter_1(eta_i1
+module Blinker_counter_zdscounter_2(eta_i1
                                    ,// clock
                                    system1000
                                    ,// asynchronous reset: active low
@@ -17,7 +17,7 @@ module Blinker_counter_zdscounter_1(eta_i1
   // regEn begin
   reg [25:0] n_7;
   
-  always @(posedge system1000 or negedge system1000_rstn) begin : regEn_Blinker_counter_zdscounter_1_n_8
+  always @(posedge system1000 or negedge system1000_rstn) begin : regEn_Blinker_counter_zdscounter_2_n_8
     if (~ system1000_rstn) begin
       n_7 <= 26'd0;
     end else begin

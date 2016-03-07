@@ -10,7 +10,7 @@ module Blinker_topEntity(input_0
   input system1000_rstn;
   output [0:0] output_0;
   Blinker_topEntity_0 Blinker_topEntity_0_inst
-  (.eta_i1 (input_0)
+  (.x_i1 (input_0)
   ,.system1000 (system1000)
   ,.system1000_rstn (system1000_rstn)
   ,.topLet_o (output_0));

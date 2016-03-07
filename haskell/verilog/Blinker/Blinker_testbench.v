@@ -4,7 +4,7 @@ module Blinker_testbench(done);
   wire [0:0] finished;
   wire system1000;
   wire system1000_rstn;
-  wire [0:0] eta_i1;
+  wire [0:0] x_i1;
   wire [0:0] topLet_o;
   assign done = finished;
   
@@ -43,10 +43,10 @@ module Blinker_testbench(done);
   Blinker_topEntity_0 totest
   (.system1000 (system1000)
   ,.system1000_rstn (system1000_rstn)
-  ,.eta_i1 (eta_i1)
+  ,.x_i1 (x_i1)
   ,.topLet_o (topLet_o));
   
-  assign eta_i1 = {1 {1'bx}};
+  assign x_i1 = {1 {1'bx}};
   
   reg [0:0] n_0;
   always begin
