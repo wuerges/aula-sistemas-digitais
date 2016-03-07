@@ -2,10 +2,11 @@ module Blinker where
 
 import CLaSH.Prelude
 
-counter :: (Num a, Eq a) => a -> Signal Bool -> Signal Bool
-counter m e = s .==. (signal m)
+counter :: (Num a, Eq a) => a -> Signal Bool
+counter m = wrap
     where
-        s = regEn 0 e (s + 1)
+        s = register 0 $ mux wrap 0 (s + 1)
+        wrap = s .==. signal m
 
 blinker :: Signal Bool -> Signal Bool
 blinker i = s
@@ -25,5 +26,5 @@ blinker i = s
                        ]
         }) #-}
 topEntity :: Signal Bool
-topEntity = blinker $ counter (50 * 1024 * 1024 :: Unsigned 26) (signal True)
+topEntity = blinker $ counter (50 * 1024 * 1024 :: Unsigned 26)
 

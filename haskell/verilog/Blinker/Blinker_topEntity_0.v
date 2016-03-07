@@ -9,7 +9,7 @@ module Blinker_topEntity_0(// clock
   output [0:0] topLet_o;
   wire [0:0] repANF_0;
   Blinker_counter_zdscounter_1 Blinker_counter_zdscounter_1_repANF_0
-  (.bodyVar_o (repANF_0)
+  (.wrap_o (repANF_0)
   ,.system1000 (system1000)
   ,.system1000_rstn (system1000_rstn));
   
