@@ -11,6 +11,19 @@ blinker :: Signal Bool -> Signal Bool
 blinker i = s
     where s = register False $ i ./=. s
 
-topEntity :: Signal Bool -> Signal Bool
-topEntity = counter (50 * 1024 * 1024 :: Unsigned 26) . blinker
+{-# ANN topEntity
+    (defTop
+        { t_name     = "blinkLeds"
+        , t_inputs   = []
+        , t_outputs  = ["LEDG"]
+        , t_extraIn  = [ ("CLOCK_50", 1)
+                       , ("KEY0"    , 1)
+                       ]
+        , t_clocks   = [ (altpll "altpll50"
+                                 "CLOCK_50(0)"
+                                 "not KEY0(0)")
+                       ]
+        }) #-}
+topEntity :: Signal Bool
+topEntity = blinker $ counter (50 * 1024 * 1024 :: Unsigned 26) (signal True)
 
