@@ -26,5 +26,6 @@ blinker i = s
                        ]
         }) #-}
 topEntity :: Signal Bool
-topEntity = blinker $ counter (50 * 1024 * 1024 :: Unsigned 26)
+--topEntity = blinker $ counter (50 * 1024 * 1024 :: Unsigned 26)
+topEntity = blinker $ counter (50 :: Unsigned 26)
 
