@@ -39,7 +39,7 @@ module Blinker_counter_zdscounter_1(// clock
   
   assign s_2 = tmp_7;
   
-  assign wrap_o_sig = s_2 == 26'd50;
+  assign wrap_o_sig = s_2 == ((26'd50 * 26'd1024) * 26'd1024);
   
   assign wrap_o = wrap_o_sig;
 endmodule
