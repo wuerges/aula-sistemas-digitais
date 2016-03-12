@@ -17,15 +17,10 @@ blinker i = s
         { t_name     = "blinkLeds"
         , t_inputs   = []
         , t_outputs  = ["LEDG"]
-        , t_extraIn  = [ ("CLOCK_50", 1)
-                       , ("KEY0"    , 1)
-                       ]
-        , t_clocks   = [ (altpll "altpll50"
-                                 "CLOCK_50(0)"
-                                 "not KEY0(0)")
-                       ]
+        , t_extraIn  = []
+        , t_clocks   = []
         }) #-}
 topEntity :: Signal Bool
---topEntity = blinker $ counter (50 * 1024 * 1024 :: Unsigned 26)
-topEntity = blinker $ counter (50 :: Unsigned 26)
+topEntity = blinker $ counter (50 * 1024 * 1024 :: Unsigned 26)
+--topEntity = blinker $ counter (50 :: Unsigned 26)
 
