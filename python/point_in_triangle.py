@@ -25,10 +25,21 @@ triangles = [t1, t2]
 img = Image.new("RGB", (800, 600))
 
 
+inputs  = []
+outputs = []
+
 for x in range(800):
     for y in range(600):
         for t in triangles:
             if insideT(P(x, y), t):
+                inputs.append((x,y))
+                outputs.append(True)
                 img.putpixel((x,y), (255,255,255))
+            else:
+                inputs.append((x,y))
+                outputs.append(False)
 
 img.save("output.png", "PNG")
+
+print(inputs)
+print(outputs)
