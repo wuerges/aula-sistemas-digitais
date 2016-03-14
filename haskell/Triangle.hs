@@ -129,12 +129,23 @@ psignT (vps, vms, vss, state) (rst, c)
                  5 -> replace 0 ((vms !! 0) `times` (vms !! 1)) vss
                  9 -> replace 1 ((vms !! 2) `times` (vms !! 3)) vss
                  _ -> vss
-        state' | state == 10 = 0
-               | otherwise   = state + 1
+        state' = case state of
+                  10 -> 0
+                  _  -> state + 1
         o = (vss !! 0) < (vss !! 1)
 
 psign :: Signal (Bool, C) -> Signal Bool
 psign = mealy psignT (replicate d6 0, replicate d4 0, replicate d2 0, 0)
+
+
+
+
+topEntity      = psign
+testInput      =
+  stimuliGenerator $(v [(True, 0):: (Bool, C), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200) ])
+
+
+expectedOutput = outputVerifier $(v [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False])
 
 {-
 sign p1 p2 p3 = s1 .<. s2
