@@ -96,57 +96,6 @@ tMemory :: Signal (Bool, Bool, C, Bool) -> Signal C
 tMemory = mealy tMemoryT (replicate d12 0, 0, 0)
 
 
-type Ext11 = Signed 12
-type Ext22 = Signed 24
-type PAddr = Unsigned 3
---type PST = (p1x, p1y, p2x, p2y, p3x, p3y, m11, m12, m21, m22, s1, s2, state)
-type PST = (Vec 6 C, Vec 4 Ext11, Vec 2 Ext22, Unsigned 10)
-
-
-
--- | Ordering of coordinates must be: [p1x, p3x, p2y, p3y, p2x, p3x, p1y, p3y]
-psignT :: PST -> (Bool, C) -> (PST, Bool)
-psignT (vps, vms, vss, state) (rst, c)
-  | rst       = ((vps, vms, vss, 0), False)
-  | otherwise = ((vps', vms', vss', state'), o)
-      where
-        vps' = case state of
-                 0 -> replace state c vps
-                 1 -> replace state c vps
-                 2 -> replace state c vps
-                 3 -> replace state c vps
-                 4 -> replace state c vps
-                 5 -> replace state c vps
-                 6 -> replace state c vps
-                 _ -> vps
-        vms' = case state of
-                 2 -> replace 0 (uts (vps !! 0) `minus` uts (vps !! 1)) vms
-                 4 -> replace 1 (uts (vps !! 2) `minus` uts (vps !! 3)) vms
-                 6 -> replace 2 (uts (vps !! 4) `minus` uts (vps !! 5)) vms
-                 8 -> replace 3 (uts (vps !! 6) `minus` uts (vps !! 7)) vms
-                 _ -> vms
-        vss' = case state of
-                 5 -> replace 0 ((vms !! 0) `times` (vms !! 1)) vss
-                 9 -> replace 1 ((vms !! 2) `times` (vms !! 3)) vss
-                 _ -> vss
-        state' = case state of
-                  10 -> 0
-                  _  -> state + 1
-        o = (vss !! 0) < (vss !! 1)
-
-psign :: Signal (Bool, C) -> Signal Bool
-psign = mealy psignT (replicate d6 0, replicate d4 0, replicate d2 0, 0)
-
-
-
-
-topEntity      = psign
-testInput      =
-  stimuliGenerator $(v [(True, 0):: (Bool, C), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200) ])
-
-
-expectedOutput = outputVerifier $(v [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False])
-
 {-
 sign p1 p2 p3 = s1 .<. s2
     where
@@ -159,3 +108,68 @@ sign p1 p2 p3 = s1 .<. s2
         up2 = unbundle p2
         up3 = unbundle p3
 -}
+
+type Ext11 = Signed 12
+type Ext22 = Signed 24
+type PAddr = Unsigned 3
+type PST = (C, Vec 4 Ext11, Vec 2 Ext22, Unsigned 10)
+
+-- | Ordering of coordinates must be: [p1x, p3x, p2y, p3y, p2x, p3x, p1y, p3y]
+psignT :: PST -> (Bool, C) -> (PST, Bool)
+psignT (aux, vms, vss, state) (rst, c)
+  | rst       = ((0, vms, vss, 0), False)
+  | otherwise = ((aux', vms', vss', state'), o)
+      where
+        aux' = c
+        vms' = case state of
+                 1 -> replace 0 (uts aux `minus` uts c) vms
+                 3 -> replace 1 (uts aux `minus` uts c) vms
+                 5 -> replace 2 (uts aux `minus` uts c) vms
+                 7 -> replace 3 (uts aux `minus` uts c) vms
+                 _ -> vms
+        vss' = case state of
+                 4 -> replace 0 ((vms !! 0) `times` (vms !! 1)) vss
+                 8 -> replace 1 ((vms !! 2) `times` (vms !! 3)) vss
+                 _ -> vss
+        state' = case state of
+                  9 -> 0
+                  _  -> state + 1
+        o = (vss !! 0) < (vss !! 1)
+
+psign :: Signal (Bool, C) -> Signal Bool
+psign = mealy psignT (replicate d6 0, replicate d4 0, replicate d2 0, 0)
+
+ {-insideT :: Signal T -> Signal P -> Signal Bool
+insideT t pt =
+        sign pt v1 v2 .&&. sign pt v2 v3 .&&. sign pt v3 v1
+    where (v1, v2, v3) = unbundle t
+  -}
+
+type TST = (Vec 6 C, Unsigned 10)
+ptriangleT :: TST -> (Bool, C) -> (TST, (Bool,C))
+ptriangleT (m, state) (rst, c)
+  | rst       = ((m, 0),       (rst, c))
+  | otherwise = ((m', state'), (rst', o))
+      where
+        m' = case state of
+               0 -> replace state c m
+               1 -> replace state c m
+               2 -> replace state c m
+               3 -> replace state c m
+               4 -> replace state c m
+               5 -> replace state c m
+               _ -> m
+        state' = case state of
+                   50 -> 0
+                   _ -> state + 1
+
+
+
+topEntity      = psign
+testInput      =
+  stimuliGenerator $(v [(True, 0):: (Bool, C), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200), (False, 200) ])
+
+
+expectedOutput = outputVerifier $(v [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False])
+
+
