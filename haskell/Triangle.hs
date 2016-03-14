@@ -3,8 +3,10 @@ module Triangle where
 import CLaSH.Prelude
 import TriangleTypes
 
+{-
 uts :: Signal (Unsigned 10) -> Signal (Signed 11)
 uts n = resize . bitCoerce <$> n
+
 
 sign :: Signal P -> Signal P -> Signal P -> Signal Bool
 sign p1 p2 p3 = s1 .<. s2
@@ -22,9 +24,6 @@ insideT :: Signal T -> Signal P -> Signal Bool
 insideT t pt =
         sign pt v1 v2 .&&. sign pt v2 v3 .&&. sign pt v3 v1
     where (v1, v2, v3) = unbundle t
-
-
-ts = $(v triangulos)
 
 triangleTester :: Signal P  -> T -> Signal Bool
 triangleTester s t = insideT (signal t) s
@@ -65,3 +64,16 @@ topEntity = topTester
 testInput      =
     stimuliGenerator $(v [(1,1)::(Unsigned 10, Unsigned 10),(2,2)])
 expectedOutput = outputVerifier $(v ([False, False]::[Bool]))
+
+
+--mealy :: (s -> i -> (s,o))
+--    -> s
+--    -> (Signal i -> Signal o)
+--asyncRam :: Enum addr => SNat newtype ->  Signal addr -> Signal addr -> Signal Bool -> Signal a -> Sig  nal ap
+--
+-}
+
+tMemory :: Signal (Unsigned 4) -> Signal (Unsigned 4) -> Signal Bool -> Signal C -> Signal C
+tMemory = asyncRam d10
+
+
