@@ -1,4 +1,5 @@
 from PIL import Image
+import random
 
 class P:
     def __init__(self, x, y):
@@ -25,21 +26,45 @@ triangles = [t1, t2]
 img = Image.new("RGB", (800, 600))
 
 
-inputs  = []
-outputs = []
+values  = []
 
 for x in range(800):
     for y in range(600):
         for t in triangles:
             if insideT(P(x, y), t):
-                inputs.append((x,y))
-                outputs.append(True)
+                values.append((x,y,t, 1))
                 img.putpixel((x,y), (255,255,255))
             else:
-                inputs.append((x,y))
-                outputs.append(False)
+                values.append((x,y,t, 0))
 
+samples = random.sample(values, 300)
 img.save("output.png", "PNG")
 
-print(inputs)
-print(outputs)
+with open("triangle_input_data.dat", 'w') as f:
+    for (x, y, (p1, p2, p3), v) in samples:
+        f.write("%d %d %d %d %d %d %d %d\n" \
+          % (x, y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y))
+
+with open("triangle_output_data.dat", 'w') as f:
+    for (x, y, (p1, p2, p3), v) in samples:
+        f.write("%d %d %d %d %d %d %d %d = %d\n" \
+          % (x, y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, v))
+
+with open("sign_input_data.dat", "w") as f:
+    for (x, y, (p1, p2, p3), v) in samples:
+        f.write("%d %d %d %d %d %d\n" \
+          % (x, y, p1.x, p1.y, p2.x, p2.y))
+
+with open("sign_output_data.dat", "w") as f:
+    for (x, y, (p1, p2, p3), v) in samples:
+        if sign(P(x, y), p1, p2) < 0:
+            sv = 1
+        else:
+            sv = 0
+
+        f.write("%d %d %d %d %d %d = %d\n" \
+          % (x, y, p1.x, p1.y, p2.x, p2.y, sv))
+
+
+
+

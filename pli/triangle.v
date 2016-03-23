@@ -15,21 +15,21 @@
 
 
 module sign(
-  input [9:0] p1x,
-  input [9:0] p1y,
-  input [9:0] p2x,
-  input [9:0] p2y,
-  input [9:0] p3x,
-  input [9:0] p3y,
+  input [10:0] p1x,
+  input [10:0] p1y,
+  input [10:0] p2x,
+  input [10:0] p2y,
+  input [10:0] p3x,
+  input [10:0] p3y,
   output s
 );
 
-  wire [10:0] t1;
-  wire [10:0] t2;
-  wire [10:0] t3;
-  wire [10:0] t4;
-  wire [21:0] m1;
-  wire [21:0] m2;
+  wire [11:0] t1;
+  wire [11:0] t2;
+  wire [11:0] t3;
+  wire [11:0] t4;
+  wire [23:0] m1;
+  wire [23:0] m2;
 
   assign t1 = p1x - p3x;
   assign t2 = p2y - p3y;
@@ -44,14 +44,14 @@ module sign(
 endmodule
 
 module triangle(
-  input [9:0] ptx,
-  input [9:0] pty,
-  input [9:0] p1x,
-  input [9:0] p1y,
-  input [9:0] p2x,
-  input [9:0] p2y,
-  input [9:0] p3x,
-  input [9:0] p3y,
+  input [10:0] ptx,
+  input [10:0] pty,
+  input [10:0] p1x,
+  input [10:0] p1y,
+  input [10:0] p2x,
+  input [10:0] p2y,
+  input [10:0] p3x,
+  input [10:0] p3y,
   output inside
 );
 
