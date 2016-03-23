@@ -24,12 +24,12 @@ module sign(
   output s
 );
 
-  wire [11:0] t1;
-  wire [11:0] t2;
-  wire [11:0] t3;
-  wire [11:0] t4;
-  wire [23:0] m1;
-  wire [23:0] m2;
+  wire signed [11:0] t1;
+  wire signed [11:0] t2;
+  wire signed [11:0] t3;
+  wire signed [11:0] t4;
+  wire signed [23:0] m1;
+  wire signed [23:0] m2;
 
   assign t1 = p1x - p3x;
   assign t2 = p2y - p3y;

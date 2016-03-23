@@ -46,8 +46,9 @@ with open("triangle_input_data.dat", 'w') as f:
           % (x, y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y))
 
 with open("triangle_output_data.dat", 'w') as f:
+#    f.write("    x     x     x     x     x     x     x     x = x\n")
     for (x, y, (p1, p2, p3), v) in samples:
-        f.write("%d %d %d %d %d %d %d %d = %d\n" \
+        f.write("%5d %5d %5d %5d %5d %5d %5d %5d = %d\n" \
           % (x, y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, v))
 
 with open("sign_input_data.dat", "w") as f:
@@ -56,13 +57,14 @@ with open("sign_input_data.dat", "w") as f:
           % (x, y, p1.x, p1.y, p2.x, p2.y))
 
 with open("sign_output_data.dat", "w") as f:
+#    f.write("    x     x     x     x     x     x = x\n")
     for (x, y, (p1, p2, p3), v) in samples:
         if sign(P(x, y), p1, p2) < 0:
             sv = 1
         else:
             sv = 0
 
-        f.write("%d %d %d %d %d %d = %d\n" \
+        f.write("%5d %5d %5d %5d %5d %5d = %d\n" \
           % (x, y, p1.x, p1.y, p2.x, p2.y, sv))
 
 
