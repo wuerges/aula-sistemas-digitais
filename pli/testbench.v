@@ -16,7 +16,7 @@ wire inside;
 triangle T(ptx, pty, p1x, p1y, p2x, p2y, p3x, p3y, inside);
 
 initial begin
-  data_file = $fopen("input_data.dat", "r");
+  data_file = $fopen("triangle_input_data.dat", "r");
   if (data_file == 0) begin
     $display("data_file handle was 0");
     $finish;
