@@ -3,15 +3,6 @@ module top;
 integer data_file;
 integer value;
 
-logic signed [9:0] Iptx;
-logic signed [9:0] Ipty;
-logic signed [9:0] Ip1x;
-logic signed [9:0] Ip1y;
-logic signed [9:0] Ip2x;
-logic signed [9:0] Ip2y;
-logic signed [9:0] Ip3x;
-logic signed [9:0] Ip3y;
-
 reg signed [9:0] ptx;
 reg signed [9:0] pty;
 reg signed [9:0] p1x;
