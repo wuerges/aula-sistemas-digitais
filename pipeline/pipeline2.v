@@ -49,8 +49,10 @@ module signP(
 
 
   always @(posedge clk) begin
-    if (r)
+    if (r) begin
       state <= 0;
+      r_s <= 0;
+    end
     else begin
       case (state)
         0: begin
