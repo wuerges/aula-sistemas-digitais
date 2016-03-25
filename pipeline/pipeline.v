@@ -64,8 +64,8 @@ module signP(
         end
         2: begin
           state <= 3;
-          p2x <= i1;
-          p2y <= i2;
+          p3x <= i1;
+          p3y <= i2;
         end
         3: begin
           state <= 4;
