@@ -1,0 +1,6 @@
+haskell/verilog
+*a.out
+*.vcd
+*.o
+*.hi
+*.png
