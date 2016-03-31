@@ -1,0 +1,12 @@
+*a.out
+*.dat
+*.vcd
+*.png
+*.o
+*.hi
+*.bak
+*.qsf
+*.qpf
+*.jdi
+pli/sign
+pli/triangle
