@@ -21,7 +21,7 @@ module tb;
     for (t = -10; t < 10; t = t + 1) begin
       #1
       i <= t;
-      $display("i = %d, o = %d", i, o);
+      $display("    i = %d, o = %d", i, o);
     end
   end
 endmodule
