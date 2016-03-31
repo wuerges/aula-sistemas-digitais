@@ -38,7 +38,6 @@ module ROM_file(
   output [11:0] data
 );
 
-integer i, j;
 reg [11:0] mem [0:9] [0:19];
 
 assign data = mem[address_x][address_y];
