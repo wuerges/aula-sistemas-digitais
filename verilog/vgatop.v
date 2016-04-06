@@ -15,7 +15,7 @@ begin
     c <= 0;
   else 
     if (cond) 
-      c <= c + 1;
+      c <= c + 1'b1;
 end
 
 endmodule
