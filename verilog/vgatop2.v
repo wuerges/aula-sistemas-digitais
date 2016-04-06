@@ -29,7 +29,7 @@ module MEM(
   input  [8:0] WV
 );
 
-reg [8:0] data [5:0];
+reg [8:0] data [63:0];
 
 assign RV = data[RA];
 
@@ -116,8 +116,9 @@ always @(posedge CLOCK_50)
 begin
 	if (~KEY[1]) begin
 		WA <= SW;
-	end else begin
+	end if (~KEY[2]) begin
 		WV <= SW;
+	end else begin
 	end
 end
 
