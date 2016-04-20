@@ -1,0 +1,43 @@
+
+digraph Notas {
+  T1 -> N1;
+  T2 -> N1;
+
+  N1 -> T3;
+  N1 -> T4;
+  N1 -> T5;
+
+  T3 -> N2;
+  T4 -> N2;
+  T5 -> N2;
+
+  N2 -> T6;
+  N2 -> T7;
+  N2 -> T8;
+
+  T6 -> N3;
+  T7 -> N3;
+  T8 -> N3;
+
+  N1 -> T9;
+  N1 -> T10;
+  
+  T9 -> N4;
+  T10 -> N4;
+
+
+  N2 -> T11;
+  N4 -> T11;
+  T11 -> N5;
+
+  N1 [label="Nota mínima 2"];
+
+  N2 [label="Nota mínima 7"];
+  
+  N3 [label="Nota mínima 10"];
+
+  N4 [label="Nota mínima 6"];
+
+  N5 [label="Nota mínima 10"];
+
+}
