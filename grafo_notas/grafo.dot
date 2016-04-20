@@ -30,14 +30,14 @@ digraph Notas {
   N4 -> T11;
   T11 -> N5;
 
-  N1 [label="Nota mínima 2"];
+  N1 [label="Nota 2"];
 
-  N2 [label="Nota mínima 7"];
+  N2 [label="Nota 7"];
   
-  N3 [label="Nota mínima 10"];
+  N3 [label="Nota 10"];
 
-  N4 [label="Nota mínima 6"];
+  N4 [label="Nota 6"];
 
-  N5 [label="Nota mínima 10"];
+  N5 [label="Nota 10"];
 
 }
