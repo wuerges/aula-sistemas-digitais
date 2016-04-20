@@ -30,6 +30,9 @@ digraph Notas {
   N4 -> T11;
   T11 -> N5;
 
+  N2 -> N6;
+  N4 -> N6;
+
   N1 [label="Nota 2"];
 
   N2 [label="Nota 7"];
@@ -37,6 +40,8 @@ digraph Notas {
   N3 [label="Nota 10"];
 
   N4 [label="Nota 6"];
+
+  N6 [label="Nota 8"];
 
   N5 [label="Nota 10"];
 
