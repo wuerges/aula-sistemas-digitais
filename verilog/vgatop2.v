@@ -107,7 +107,7 @@ wire [8:0] RV; // OK
 reg [5:0] WA = 6'd0;
 reg [8:0] WV = 6'd0;
 
-assign RA = {X[2:0], Y[2:0]};
+assign RA = {X[8:6], Y[8:6]};
 assign V = {RV[2:0], 1'b0, RV[5:3], 1'b0, RV[8:6], 1'b0};
 
 MEM M(CLOCK_50, we, RA, RV, WA, WV);

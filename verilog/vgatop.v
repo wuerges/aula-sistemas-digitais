@@ -46,9 +46,9 @@ assign visible_h = (count_h > 240) & (count_h < 1040);
 assign visible_v = (count_v > 66) & (count_v < 666);
 assign visible = visible_h & visible_v;
 
-assign r = visible ? 4'hf : 4'h0;
-assign g = visible ? 4'hf : 4'h0;
-assign b = visible ? 4'h0 : 4'h0;
+assign r = visible ? count_h[4:0] : 4'h0;
+assign g = visible ? count_v[4:0] : 4'h0;
+assign b = visible ? (count_h[4:0] + count_v[4:0]) : 4'h0;
 
 assign h_sync = (count_h > 56) & (count_h < 176);
 assign v_sync = (count_v > 37) & (count_v < 43);
