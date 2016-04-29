@@ -41,11 +41,36 @@ end
 
 endmodule
 
+module alu(
+  input [31:0] v1,
+  input [31:0] v2,
+  input [4:0]  op,
+  output [31:0] alu_out);
+
+reg [31:0] alu_out_reg;
+
+assign alu_out = alu_out_reg;
+
+always @(v1, v2, op) begin
+
+  case(op)
+    0: alu_out_reg <= v1 + v2;
+    1: alu_out_reg <= v1 - v2;
+    2: alu_out_reg <= v1 * v2;
+    3: alu_out_reg <= v1 << v2;
+    4: alu_out_reg <= v1 & v2;
+    5: alu_out_reg <= v1 | v2;
+  endcase
+
+end
+endmodule
+
+
 module inst_decoder(
   input [31:0] instruction,
   output b,
   output w,
-  output op,
+  output [4:0] op,
   output i,
   output [4:0] imm,
   output [4:0] dst1,
@@ -62,11 +87,46 @@ module processor(
   input [31:0] instruction,
   output [31:0] instruction_addr);
 
-  wire b, w, op, i;
+  wire b, w, i;
+  wire [4:0] op;
   wire [4:0] imm;
   wire [4:0] dst1;
   wire [4:0] src1;
   wire [4:0] src2;
+  wire [31:0] alu_out;
+  wire [31:0] t1;
+  wire [31:0] v1;
+  wire [31:0] v2;
+
+  assign t1 = i ? alu_out : imm;
+
+  reg [31:0] pc;
+
+  assign instruction_addr = pc;
+
+  always @(posedge clk) begin
+    if (b)
+      pc <= pc + t1;
+    else
+      pc <= pc + 1;
+  end
+
+  mem_registradores R(
+    clk,
+    w,
+    dst1,
+    src1,
+    src2,
+    v1,
+    v2,
+    t1);
+
+  alu A(
+    v1,
+    v2,
+    op,
+    alu_out);
+
 
   inst_decoder D(
     instruction, 
