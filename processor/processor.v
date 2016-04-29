@@ -68,16 +68,24 @@ endmodule
 
 module inst_decoder(
   input [31:0] instruction,
-  output b,
-  output w,
-  output [4:0] op,
-  output i,
-  output [4:0] imm,
-  output [4:0] dst1,
-  output [4:0] src1,
-  output [4:0] src2);
+  output b, // ok
+  output w, // ok
+  output [4:0] op, //ok
+  output i, //ok
+  output [4:0] imm, // ok
+  output [4:0] dst1, // ok
+  output [4:0] src1, // ok
+  output [4:0] src2); //ok
 
-  // TODO
+
+  assign op   = instruction[31:27];
+  assign b    = instruction[26];
+  assign w    = instruction[25];
+  assign i    = instruction[24];
+  assign dst1 = instruction[23:19];
+  assign src1 = instruction[18:14];
+  assign src2 = instruction[13:9];
+  assign imm  = instruction[8:4];
 
 endmodule
 
