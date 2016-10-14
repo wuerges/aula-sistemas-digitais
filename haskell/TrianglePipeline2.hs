@@ -16,7 +16,6 @@ rotateT (p1, p2, p3) = (p2, p3, p1)
 
 uts :: Unsigned 10 -> Signed 11
 uts n = resize . bitCoerce $ n
-
 mminus a b = uts a `minus` uts b
 
 sign :: Signal (P, Bool) -> Signal Bool
