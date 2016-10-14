@@ -18,54 +18,56 @@ def insideT(pt, t):
 
     return b1 == b2 and b2 == b3
 
-t1 = (P(10, 10), P(200,100) , P(300,300))
-t2 = (P(400, 400), P(700,400) , P(700,600))
+if __name__ == '__main__':
 
-triangles = [t1, t2]
+    t1 = (P(10, 10), P(200,100) , P(300,300))
+    t2 = (P(400, 400), P(700,400) , P(700,600))
 
-img = Image.new("RGB", (800, 600))
+    triangles = [t1, t2]
+
+    img = Image.new("RGB", (800, 600))
 
 
-values  = []
+    values  = []
 
-for x in range(800):
-    for y in range(600):
-        for t in triangles:
-            if insideT(P(x, y), t):
-                values.append((x,y,t, 1))
-                img.putpixel((x,y), (255,255,255))
-            else:
-                values.append((x,y,t, 0))
+    for x in range(800):
+        for y in range(600):
+            for t in triangles:
+                if insideT(P(x, y), t):
+                    values.append((x,y,t, 1))
+                    img.putpixel((x,y), (255,255,255))
+                else:
+                    values.append((x,y,t, 0))
 
-samples = random.sample(values, 300)
-img.save("output.png", "PNG")
+    samples = random.sample(values, 300)
+    img.save("output.png", "PNG")
 
-with open("triangle_input_data.dat", 'w') as f:
-    for (x, y, (p1, p2, p3), v) in samples:
-        f.write("%d %d %d %d %d %d %d %d\n" \
-          % (x, y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y))
+    with open("triangle_input_data.dat", 'w') as f:
+        for (x, y, (p1, p2, p3), v) in samples:
+            f.write("%d %d %d %d %d %d %d %d\n" \
+              % (x, y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y))
 
-with open("triangle_output_data.dat", 'w') as f:
+    with open("triangle_output_data.dat", 'w') as f:
 #    f.write("    x     x     x     x     x     x     x     x = x\n")
-    for (x, y, (p1, p2, p3), v) in samples:
-        f.write("%5d %5d %5d %5d %5d %5d %5d %5d = %d\n" \
-          % (x, y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, v))
+        for (x, y, (p1, p2, p3), v) in samples:
+            f.write("%5d %5d %5d %5d %5d %5d %5d %5d = %d\n" \
+              % (x, y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, v))
 
-with open("sign_input_data.dat", "w") as f:
-    for (x, y, (p1, p2, p3), v) in samples:
-        f.write("%d %d %d %d %d %d\n" \
-          % (x, y, p1.x, p1.y, p2.x, p2.y))
+    with open("sign_input_data.dat", "w") as f:
+        for (x, y, (p1, p2, p3), v) in samples:
+            f.write("%d %d %d %d %d %d\n" \
+              % (x, y, p1.x, p1.y, p2.x, p2.y))
 
-with open("sign_output_data.dat", "w") as f:
+    with open("sign_output_data.dat", "w") as f:
 #    f.write("    x     x     x     x     x     x = x\n")
-    for (x, y, (p1, p2, p3), v) in samples:
-        if sign(P(x, y), p1, p2) < 0:
-            sv = 1
-        else:
-            sv = 0
+        for (x, y, (p1, p2, p3), v) in samples:
+            if sign(P(x, y), p1, p2) < 0:
+                sv = 1
+            else:
+                sv = 0
 
-        f.write("%5d %5d %5d %5d %5d %5d = %d\n" \
-          % (x, y, p1.x, p1.y, p2.x, p2.y, sv))
+            f.write("%5d %5d %5d %5d %5d %5d = %d\n" \
+              % (x, y, p1.x, p1.y, p2.x, p2.y, sv))
 
 
 
