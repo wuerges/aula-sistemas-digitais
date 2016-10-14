@@ -17,6 +17,25 @@ def sign(out, p1x, p1y, p2x, p2y, p3x, p3y):
     return logic
 
 @block
+def insideT(out, ptx, pty, p1x, p1y, p2x, p2y, p3x, p3y):
+
+    s1 = Signal(bool(0))
+    s2 = Signal(bool(0))
+    s3 = Signal(bool(0))
+
+    sign1 = sign(s1, ptx, pty, p1x, p1y, p2x, p2y)
+    sign2 = sign(s2, ptx, pty, p2x, p2y, p3x, p3y)
+    sign3 = sign(s3, ptx, pty, p3x, p3y, p1x, p1y)
+
+    @always_comb
+    def logic():
+
+        out.next = (s1 == s2) & (s2 == s3)
+
+    return sign1, sign2, sign3, logic
+
+
+@block
 def test_sign():
     out = Signal(bool(0)) 
     p1x, p2x, p3x = [Signal(intbv(0, 0, 800)) for i in range(3)]
@@ -46,3 +65,10 @@ def test_sign():
 tb = test_sign()
 tb.run_sim()
 
+
+out = Signal(bool(0)) 
+ptx, p1x, p2x, p3x = [Signal(intbv(0, 0, 800)) for i in range(4)]
+pty, p1y, p2y, p3y = [Signal(intbv(0, 0, 600)) for i in range(4)]
+
+t = insideT(out, ptx, pty, p1x, p1y, p2x, p2y, p3x, p3y)
+t.convert()
