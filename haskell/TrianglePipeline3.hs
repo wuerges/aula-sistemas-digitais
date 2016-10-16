@@ -12,6 +12,24 @@ rotateT (p1, p2, p3) = (p2, p3, p1)
 
 data S = P1 | P2 | P3 | R
 
+data Stage1 =
+  S1 { point :: P
+     , p1 :: P
+     , p2 :: P
+     , p3 :: P }
+
+data Stage2 =
+  S2 { t1 :: Signed 12
+     , t2 :: Signed 12
+     , t3 :: Signed 12
+     , t4 :: Signed 12 }
+
+data Stage3 =
+  S3 { m1 :: Signed 24
+     , m2 :: Signed 24
+
+
+
 data D = D { point    :: P
            , p1 :: P
            , p2 :: P
