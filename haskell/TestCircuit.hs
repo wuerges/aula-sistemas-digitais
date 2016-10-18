@@ -52,21 +52,19 @@ stage0T (p, p1, p2, p3, st) (rst, re, p')
 
 stage0out (p, p1, p2, p3, _) = (p, p1, p2 ,p3)
 
-stage0adap s =
-  (\(a, b, c, d) -> (unbundle a, unbundle b, unbundle c, unbundle d)) $ unbundle s
-
-
 stage0 = moore stage0T stage0out (p0, p0, p0, p0, P1)
 
-stage1 ( (px, py)
-       , (p1x, p1y)
-       , (p2x, p2y)
-       , (p3x, p3y) ) = ((t1, t2), (t3, t4))
+stage1 s = ((t1, t2), (t3, t4))
   where
-    t1 = register 0 $ px  `smminus` p3x
-    t2 = register 0 $ p2y `smminus` p3y
-    t3 = register 0 $ p2x `smminus` p3x
-    t4 = register 0 $ px  `smminus` p3x
+    (p, p1, p2, p3) = unbundle s
+    (px, py)        = unbundle p
+    (p1x, p1y)      = unbundle p1
+    (p2x, p2y)      = unbundle p2
+    (p3x, p3y)      = unbundle p3
+    t1              = register 0 $ px  `smminus` p3x
+    t2              = register 0 $ p2y `smminus` p3y
+    t3              = register 0 $ p2x `smminus` p3x
+    t4              = register 0 $ px  `smminus` p3x
 
 stage2_1 (t1, t2) = register 0 $ t1 `times` t2
 
@@ -78,4 +76,4 @@ stage4 a = register False a
 
 
 -- sign = stage0 >>> stage1 >>> stage2 >>> stage3 >>> stage4
-sign = stage0 >>> stage0adap >>> stage1 >>> stage2 >>> stage3 >>> stage4
+sign = stage0 >>> stage1 >>> stage2 >>> stage3 >>> stage4

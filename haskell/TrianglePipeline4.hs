@@ -18,6 +18,7 @@ module TP4 where
 
 import CLaSH.Prelude
 import CLaSH.Sized.Vector
+import Control.Arrow
 
 type C = Unsigned 10
 type P = (C, C)
@@ -130,7 +131,7 @@ stage4 = moore stage4T r $ S4 False
 -- | The function 'sign' is the moore machine composed
 -- of the moore machines of each stage.
 sign ::Signal (Bool, Bool, P) -> Signal Bool
-sign = stage4 . stage3 . stage2 . stage1
+sign = stage1 >>> stage2 >>> stage3 >>> stage4
 
 
 topEntity = sign
