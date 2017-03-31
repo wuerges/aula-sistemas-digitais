@@ -3,7 +3,7 @@ module test;
 reg [1:0] r;
 
 initial begin
-	$dumpvars(0, r);
+	$dumpvars(0, test);
 
 	#2 r <= 0;
 	#2 r <= 1;
