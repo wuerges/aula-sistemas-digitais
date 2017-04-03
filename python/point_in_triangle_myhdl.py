@@ -1,5 +1,3 @@
-
-
 from myhdl import *
 import random as r
 import point_in_triangle as pt
@@ -7,7 +5,6 @@ import point_in_triangle as pt
 r.seed(5)
 
 
-@block
 def sign(out, p1x, p1y, p2x, p2y, p3x, p3y):
 
     @always_comb
@@ -16,7 +13,6 @@ def sign(out, p1x, p1y, p2x, p2y, p3x, p3y):
 
     return logic
 
-@block
 def insideT(out, ptx, pty, p1x, p1y, p2x, p2y, p3x, p3y):
 
     s1 = Signal(bool(0))
@@ -35,7 +31,6 @@ def insideT(out, ptx, pty, p1x, p1y, p2x, p2y, p3x, p3y):
     return sign1, sign2, sign3, logic
 
 
-@block
 def test_sign():
     out = Signal(bool(0)) 
     p1x, p2x, p3x = [Signal(intbv(0, 0, 800)) for i in range(3)]
@@ -59,16 +54,17 @@ def test_sign():
 
             if(out != (pt.sign(p1, p2, p3) < 0)):
                 raise ValueError("Signal missmatch")
+        print("finished simulation")
 
     return sign_1, stimulus
 
 tb = test_sign()
-tb.run_sim()
-
+sim = Simulation(tb)
+sim.run()
 
 out = Signal(bool(0)) 
 ptx, p1x, p2x, p3x = [Signal(intbv(0, 0, 800)) for i in range(4)]
 pty, p1y, p2y, p3y = [Signal(intbv(0, 0, 600)) for i in range(4)]
+#t = insideT(out, ptx, pty, p1x, p1y, p2x, p2y, p3x, p3y)
 
-t = insideT(out, ptx, pty, p1x, p1y, p2x, p2y, p3x, p3y)
-t.convert()
+ver = toVerilog(insideT, out, ptx, pty, p1x, p1y, p2x, p2y, p3x, p3y)
