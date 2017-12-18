@@ -43,6 +43,12 @@ def test(jc2):
 
     return clkgen, jc2_inst, stimulus, monitor
 
+
+goLeft, goRight, stop, clk = [Signal(INACTIVE) for i in range(4)]
+q = Signal(intbv(0)[4:])
+jc2_inst = jc2(goLeft, goRight, stop, clk, q)
+jc2_inst.convert(hdl='Verilog')
+
 sim = test(jc2)
 sim.config_sim(trace=True)
 sim.run_sim()
